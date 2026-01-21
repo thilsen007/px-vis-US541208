@@ -258,12 +258,14 @@ Custom property | Description
             There are actually two boxes, .selection and .overlay:
             overlay captures the mouse events; selection is what is visible
           */
-          this._brushGroup.select('rect.selection')
-            .attr('y', 0)
-            .attr('stroke', this._checkThemeVariable('--px-vis-nav-brush-outline-color', 'rgb(0,0,0)'))
-            .attr('stroke-width',1)
-            .attr('shape-rendering','crispEdges')
-            .attr('clip-path', 'url(#' + this._clipPathId + '0)');
+          //this._brushGroup.select('rect.selection')
+          //  .attr('y', 0)
+          //  .attr('stroke', this._checkThemeVariable('--px-vis-nav-brush-outline-color', 'rgb(0,0,0)'))
+          //  .attr('stroke-width',1)
+          //  .attr('shape-rendering','crispEdges')
+          //  .attr('clip-path', 'url(#' + this._clipPathId + '0)'); //ADO# 1183179
+
+          this._brushGroup.select('rect.selection').attr('y', 0).attr('stroke', '#B7C1C9').attr('stroke-width', 1).attr('shape-rendering', 'crispEdges').attr('clip-path', 'url(#' + this._clipPathId + '0)'); //ADO# 1183179
 
           this._styleGradient();
 
@@ -273,6 +275,8 @@ Custom property | Description
           this._brushGroup.select("rect.overlay")
             .on("mousedown.brush", this._brushcenter.bind(this))
             .on("touchstart.brush", this._brushcenter.bind(this));
+          this._brushGroup.select("rect.overlay").attr("cursor", "grab").attr('stroke', '#B7C1C9'); //ADO# 1183179
+          this._brushGroup.select("rect.selection").attr("cursor", "grab").attr('stroke', '#004791'); //ADO# 1183179
         } else {
           this._drawClipPath([0,h]);
 
@@ -316,12 +320,16 @@ Custom property | Description
               .attr('stop-color', this._gradientFunction((i*interval)/100));
           }
 
-          overlay.attr('fill',`url(#overlayGradient)`)
-            .attr('fill-opacity', this._checkThemeVariable("--px-vis-nav-brush-opacity", 0.3));
+          //overlay.attr('fill',`url(#overlayGradient)`)
+          //  .attr('fill-opacity', this._checkThemeVariable("--px-vis-nav-brush-opacity", 0.3)); //ADO# 1183179
+
+          overlay.attr('fill', "#D9F0FF").attr('fill-opacity', this._checkThemeVariable("--px-vis-nav-brush-opacity", 0.3)).attr('stroke', '#B7C1C9'); //ADO# 1183179
 
         } else {
-          overlay.attr('fill',this._checkThemeVariable("--px-vis-nav-brush-fill-color", 'rgb(0,0,0)'))
-            .attr('fill-opacity', this._checkThemeVariable("--px-vis-nav-brush-opacity", 0.3));
+          //overlay.attr('fill',this._checkThemeVariable("--px-vis-nav-brush-fill-color", 'rgb(0,0,0)'))
+          // .attr('fill-opacity', this._checkThemeVariable("--px-vis-nav-brush-opacity", 0.3)); //ADO# 1183179
+
+          overlay.attr('fill', "#D9F0FF").attr('fill-opacity', this._checkThemeVariable("--px-vis-nav-brush-opacity", 0.3)).attr('stroke', '#B7C1C9'); //ADO# 1183179
         }
       }
     },
@@ -390,6 +398,9 @@ Custom property | Description
       this.set("_brushing", true);
       //TODO do we want to issue a color change? if not, delete/ comment out
       this.svg.classed("selecting", true);
+      this._brushGroup = this.svg.select("g.brush").call(this._brush); //ADO# 1183179
+      this._brushGroup.select("rect.overlay").attr("cursor", "grab"); //ADO# 1183179
+      this._brushGroup.select("rect.selection").attr("cursor", "grabbing").attr('stroke', '#003A81'); //ADO# 1183179
     },
     /**
      * Helper function to remove class "selecting" to elements not selected in the brush
@@ -406,6 +417,9 @@ Custom property | Description
       // console.log(d3.event.selection);
       //TODO do we want to issue a color change? if not, delete/ comment out
       this.svg.classed("selecting", false);
+      this._brushGroup = this.svg.select("g.brush").call(this._brush); //ADO# 1183179
+      this._brushGroup.select("rect.overlay").attr("cursor", "grab"); //ADO# 1183179
+      this._brushGroup.select("rect.selection").attr("cursor", "grab").attr('stroke', '#B7C1C9'); //ADO# 1183179
     },
     /**
      * Helper function fired when the brush is moved / extents are changed.
@@ -420,6 +434,8 @@ Custom property | Description
       this.debounce('brushed', function () {
 
         var brushExt = Px.d3.brushSelection(this._brushGroup.node());
+        this._brushGroup.select("rect.overlay").attr("cursor", "grabbing"); //ADO# 1183179
+        this._brushGroup.select("rect.selection").attr("cursor", "grabbing").attr('stroke', '#003A81'); //ADO# 1183179
         if(brushExt) {
 
           //if our extents are the same (or less than 1 px apart), add or subtract one based on location and reset the brush
@@ -581,11 +597,13 @@ Custom property | Description
       //     .attr("width", 20)
       //     .attr("height", 20)
       // draw the handle rect / base
-      this._handleGroup
-        .attr("clip-path", 'url(#' + this._clipPathId + ')')
-        .attr('stroke',this._checkThemeVariable("--px-vis-nav-brush-handle-lines-color", 'rgb(0,0,0)'))
-        .attr('fill',this._checkThemeVariable("--px-vis-nav-brush-handle-fill-color", 'rgb(255,255,255)'))
-        .attr('shape-rendering','crispEdges');
+      //this._handleGroup
+      //  .attr("clip-path", 'url(#' + this._clipPathId + ')')
+      //  .attr('stroke',this._checkThemeVariable("--px-vis-nav-brush-handle-lines-color", 'rgb(0,0,0)'))
+      //  .attr('fill',this._checkThemeVariable("--px-vis-nav-brush-handle-fill-color", 'rgb(255,255,255)'))
+      //  .attr('shape-rendering','crispEdges'); //ADO# 1183179
+
+      this._handleGroup.attr("clip-path", 'url(#' + this._clipPathId + ')').attr('stroke', this._checkThemeVariable("--px-vis-nav-brush-handle-lines-color", 'rgb(0,0,0)')).attr('fill', this._checkThemeVariable("--px-vis-nav-brush-handle-fill-color", 'rgb(255,255,255)')).attr('shape-rendering', 'crispEdges').attr('cursor', 'grabbing'); //ADO# 1183179 cursor="ew-resize"
 
       // draw the lines for the handles
       // this._handleGroup.append("svg:line")
