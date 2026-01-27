@@ -276,7 +276,7 @@ Custom property | Description
             .on("mousedown.brush", this._brushcenter.bind(this))
             .on("touchstart.brush", this._brushcenter.bind(this));
           this._brushGroup.select("rect.selection").on("mouseenter.brush", this._brushmouseenter.bind(this)).on("mouseleave.brush", this._brushmouseleave.bind(this));//ADO# 1183179 Jan27
-          this._brushGroup.select("rect.overlay").attr("cursor", "grab").attr('stroke', '#D4DADF').attr("fill", '#FCFCFC').attr('fill-opacity', 0.2); //ADO# 1183179 Jan27
+          this._brushGroup.select("rect.overlay").attr("cursor", "grab").attr('stroke', '#D4DADF').attr("fill", '#FCFCFC').attr('fill-opacity', 0.0); //ADO# 1183179 Jan27
           this._brushGroup.select("rect.selection").attr("cursor", "grab").attr('stroke', '#004791'); //ADO# 1183179
         } else {
           this._drawClipPath([0,h]);
