@@ -664,7 +664,7 @@ Custom property | Description
       // set the pressed styles
       //elem.attr('stroke', this._checkThemeVariable("--px-vis-nav-brush-handle-lines-color-press", 'rgb(0,0,0)')).attr('fill', this._checkThemeVariable("--px-vis-nav-brush-handle-fill-color-press", 'rgb(50,50,50)'));//ADO# 1183179
   
-      elem.attr('stroke', '#003A81').attr('cursor', 'grabbing').attr('fill', this._checkThemeVariable("--px-vis-nav-brush-handle-fill-color-press", 'rgb(50,50,50)')); //ADO# 1183179
+      elem.attr('stroke', '#003A81').attr('cursor', 'grabbing').attr('fill', '#003A81'); //ADO# 1183179 Jan28
   
       // elem.selectAll('line.handleLine')
       //   .attr('stroke', this.colors.gray7);
@@ -705,7 +705,7 @@ Custom property | Description
     _handleGroupMouseEnter: function (d, i) {
       var elem = Px.d3.select(this._handleGroup.nodes()[i]);
       //elem.attr('stroke', this._checkThemeVariable("--px-vis-nav-brush-handle-lines-color-hover", 'rgb(0,0,0)')).attr('fill', this._checkThemeVariable("--px-vis-nav-brush-handle-fill-color-hover", 'rgb(150,150,150)'));//ADO# 1183179
-      elem.attr('stroke', '#004791').attr('cursor', 'grab').attr('fill', this._checkThemeVariable("--px-vis-nav-brush-handle-fill-color-hover", 'rgb(150,150,150)')); //ADO# 1183179
+      elem.attr('stroke', '#004791').attr('cursor', 'grab').attr('fill', '#004791'); //ADO# 1183179 Jan28
   
       // elem.selectAll('line.handleLine')
       //   .attr('stroke', this.colors.gray6);
