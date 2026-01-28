@@ -417,10 +417,10 @@ function _getPixelSpaceVal(d, chartScale, key, axis) {
  */
 function calcValueQuadtree(d, x, y) {
   var o = {};
-
-  o[x] = d[x];
-  o[y] = d[y];
-
+  if (d) {
+    o[x] = d[x];
+    o[y] = d[y];
+  }
   return o;
 }
 
